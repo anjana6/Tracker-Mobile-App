@@ -2,12 +2,14 @@ const express = require('express');
 const connectDB = require("./config/db");
 
 const authRoutes = require('./routes/authRoutes');
+const trackRoutes = require('./routes/trackRoutes');
 
 const app = express();
 connectDB();
 
 app.use(express.json({extended:false}));
 app.use(authRoutes); 
+app.use(trackRoutes);
 
 app.get('/',(req,res) =>{
     res.send("start");
