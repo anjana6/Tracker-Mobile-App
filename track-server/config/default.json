@@ -1,3 +1,4 @@
 {
-    "mongoURI" : "mongodb://localhost:27017/tracker"
+    "mongoURI" : "mongodb://localhost:27017/tracker",
+    "jwt" : "MY_SECRET_KEY"
 }
