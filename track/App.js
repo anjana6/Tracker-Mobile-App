@@ -1,15 +1,18 @@
-import AccountScreen from './src/screen/AccountScreen';
-import SigninScreen from './src/screen/SigninScreen';
-import SignupScreen from './src/screen/SignupScreen';
-import TrackCreateScreen from './src/screen/TrackCreateScreen';
-import TrackDetailScreen from './src/screen/TrackDetailScreen';
-import TrackListScreen from './src/screen/TrackListScreen';
+import React from 'react';
 import Nav from './Nav';
+import configureStore from './src/configureStore';
+import {Provider} from 'react-redux';
 
-import React from 'react'
+
 
 const App = () => {
-  return <Nav/>
+
+  return (
+    <Provider store={configureStore}>
+      <Nav/>
+    </Provider>
+  );
+    
 }
 
 export default App;
