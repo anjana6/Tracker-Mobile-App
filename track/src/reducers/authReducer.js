@@ -1,7 +1,7 @@
-import {ADD_ERROR, REGISTERING} from '../actions/Type';
+import {ADD_ERROR, REGISTERING,LOGGING} from '../actions/Type';
 
 const initialState = {
-    token: false,
+    token: null,
     errorMessage:''}
 
 export default (state = initialState,action) =>{
@@ -11,6 +11,7 @@ export default (state = initialState,action) =>{
         case ADD_ERROR:
             return {...state,errorMessage:payload};
         case REGISTERING:
+        case LOGGING:
             return {...state,token:payload,errorMessage:''};
         default:
             return state;

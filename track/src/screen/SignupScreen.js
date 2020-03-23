@@ -1,41 +1,24 @@
-import React,{useState} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {View,StyleSheet} from 'react-native';
-import {Text,Input,Button} from 'react-native-elements';
-import Spacer from '../component/Specer';
 import {SignUp} from '../actions/authAction';
+import AuthForm from '../component/AuthForm';
+import NavLink from '../component/NavLink';
 
-const SignupScreen = ({navigation,SignUp,auth:{errorMessage}}) =>{
-    const [email,setEmail] = useState('');
-    const [password,setPassword] = useState('');
-
-    //console.log(errorMessage)
+const SignupScreen = ({SignUp,auth:{errorMessage}}) =>{
 
     return (
         <View style={styles.container}>
-            <Spacer>
-            <Text h3>Sign Up for Tracker</Text>
-            </Spacer> 
-            <Input 
-                label="Email" 
-                value={email} 
-                onChangeText={setEmail}
-                autoCapitalize="none"
-                autoCorrect={false}
+            <AuthForm
+                headerText="Sign Up for Tracker"
+                errorMessage={errorMessage}
+                submitButtonText="Sign Up"
+                onSubmit={SignUp}
             />
-            <Spacer/>
-            <Input 
-                secureTextEntry
-                label="Password" 
-                value={password} 
-                onChangeText={setPassword}
-                autoCapitalize="none"
-                autoCorrect={false}
+            <NavLink
+                routeName = "Signin"
+                text = "Already have an account? Sign in insted"
             />
-           {errorMessage?<Text style={styles.errorMessage}>{errorMessage}</Text>:null}
-            <Spacer>
-            <Button title="Sign Up" onPress={() => SignUp({email,password})}/>
-            </Spacer>
         </View>
     )
 }
@@ -46,12 +29,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         marginBottom:250
     },
-    errorMessage:{
-        fontSize:16,
-        color: 'red',
-        marginTop:15,
-        marginLeft:20
-    }
+    
 });
 
 const mapStateToProps = state => ({

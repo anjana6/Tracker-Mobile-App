@@ -15,4 +15,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Specer
+export default Specer;

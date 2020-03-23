@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {connect} from 'react-redux';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -14,7 +15,7 @@ import TrackListScreen from './src/screen/TrackListScreen';
 const Stack = createStackNavigator();
 const MaterialBottomTabs = createMaterialBottomTabNavigator();
 
-const Nav = () =>{
+const Nav = ({authToken}) =>{
 
     const loginStack = () => 
         <Stack.Navigator>
@@ -38,15 +39,24 @@ const Nav = () =>{
     
     return(
         <NavigationContainer>
-            <Stack.Navigator 
->
-                {/* <Stack.Screen name="login" children={loginStack}/> */}
-                <Stack.Screen name="Signup" component={SignupScreen} options={{headerShown:false}}/>
-                <Stack.Screen name="Signin" component={SigninScreen} />
-                <Stack.Screen name="Main" children={mainStack} options={{headerShown:false}}/>
+            <Stack.Navigator>
+               { authToken == null? ( 
+                    <>
+                        <Stack.Screen name="Signup" component={SignupScreen} options={{headerShown:false}}/>
+                        <Stack.Screen name="Signin" component={SigninScreen} options={{headerShown:false}}/>
+                    </>
+               ) : (
+                    <>
+                        <Stack.Screen name="Main" component={mainStack} options={{}}/>
+                    </>
+                )}
             </Stack.Navigator>
         </NavigationContainer>
     )
 }
 
-export default Nav;
+const mapStateToProps = state => ({
+    authToken: state.auth.token
+})
+
+export default connect(mapStateToProps)(Nav);
