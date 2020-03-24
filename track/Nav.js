@@ -1,4 +1,4 @@
-import * as React from 'react';
+import  React,{useEffect} from 'react';
 import {connect} from 'react-redux';
 
 import {NavigationContainer} from '@react-navigation/native';
@@ -11,18 +11,13 @@ import SignupScreen from './src/screen/SignupScreen';
 import TrackCreateScreen from './src/screen/TrackCreateScreen';
 import TrackDetailScreen from './src/screen/TrackDetailScreen';
 import TrackListScreen from './src/screen/TrackListScreen';
+import ResoleveAuthScreen from './src/screen/ResoleveAuthScreen';
+
 
 const Stack = createStackNavigator();
 const MaterialBottomTabs = createMaterialBottomTabNavigator();
 
-const Nav = ({authToken}) =>{
-
-    const loginStack = () => 
-        <Stack.Navigator>
-            <Stack.Screen name="Signup" component={SignupScreen}/>
-            <Stack.Screen name="Signin" component={SigninScreen}/>
-        </Stack.Navigator>
-    
+const Nav = ({auth:{token,isToken}}) =>{
     const mainStack = () => 
         <MaterialBottomTabs.Navigator>
             <MaterialBottomTabs.Screen name="TrackList" children={trackListFlowStack}/>
@@ -40,10 +35,18 @@ const Nav = ({authToken}) =>{
     return(
         <NavigationContainer>
             <Stack.Navigator>
-               { authToken == null? ( 
-                    <>
-                        <Stack.Screen name="Signup" component={SignupScreen} options={{headerShown:false}}/>
-                        <Stack.Screen name="Signin" component={SigninScreen} options={{headerShown:false}}/>
+               { token == null? ( 
+                    <> 
+                        {token ==null && isToken? (
+                                <>
+                                    <Stack.Screen name="Resolve" component={ResoleveAuthScreen} options={{headerShown:false}}/>
+                                </>
+                            ) : ( 
+                                <>
+                                    <Stack.Screen name="Signup" component={SignupScreen} options={{headerShown:false}}/>
+                                    <Stack.Screen name="Signin" component={SigninScreen} options={{headerShown:false}}/>
+                                </> 
+                            ) }
                     </>
                ) : (
                     <>
@@ -56,7 +59,7 @@ const Nav = ({authToken}) =>{
 }
 
 const mapStateToProps = state => ({
-    authToken: state.auth.token
+    auth: state.auth
 })
 
 export default connect(mapStateToProps)(Nav);

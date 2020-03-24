@@ -1,11 +1,21 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {View,StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
-import {SignIn} from '../actions/authAction';
+import {SignIn,ClearErrorMessage} from '../actions/authAction';
 import AuthForm from '../component/AuthForm';
 import NavLink from '../component/NavLink';
 
-const SigninScreen = ({SignIn,auth:{errorMessage}}) =>{
+const SigninScreen = ({navigation,SignIn,ClearErrorMessage,auth:{errorMessage}}) =>{
+
+    useEffect(() => {
+        const removeError = navigation.addListener('focus',() =>{
+            ClearErrorMessage();
+        });
+
+        return removeError
+        
+    }, [navigation]);
+    
     return (
         <View style={styles.container}>
             <AuthForm
@@ -34,4 +44,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps,{SignIn})(SigninScreen);
+export default connect(mapStateToProps,{SignIn,ClearErrorMessage})(SigninScreen);

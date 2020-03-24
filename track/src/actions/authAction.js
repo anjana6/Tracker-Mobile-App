@@ -1,6 +1,6 @@
 import trackerApi from '../api/tracker';
 import {AsyncStorage} from 'react-native';
-import {ADD_ERROR,REGISTERING,LOGGING} from './Type';
+import {ADD_ERROR,REGISTERING,LOGGING,CLEAR_ERROR_MESSAGE,LOGOUT,HAVE_TOKEN,NOT_TOKEN} from './Type';
 
 export const SignUp = ({email,password}) => async dispatch => {
     try {
@@ -37,10 +37,32 @@ export const SignIn = ({email,password}) => async dispatch => {
     }
 }
 
-export const SingOut = () => async dispatch => {
-    try {
-        
-    } catch (err) {
-        
+export const TryLocalSignIn = () => async dispatch =>{
+    const token = await AsyncStorage.getItem('token');
+    console.log(token);
+    if(token){
+        dispatch({
+            type:  HAVE_TOKEN,
+            payload:token
+        })
+    }else{
+        dispatch({
+            type:NOT_TOKEN,
+        })
     }
+}
+
+export const SingOut = () => async dispatch => {
+    
+        await AsyncStorage.removeItem('token');
+        dispatch({
+            type:LOGOUT
+        })
+    
+}
+
+export const ClearErrorMessage = () => dispatch =>{
+    dispatch({
+        type:CLEAR_ERROR_MESSAGE
+    })
 }
