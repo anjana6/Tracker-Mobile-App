@@ -50,7 +50,7 @@ const Nav = ({auth:{token,isToken}}) =>{
                     </>
                ) : (
                     <>
-                        <Stack.Screen name="Main" component={mainStack} options={{}}/>
+                        <Stack.Screen name="Main" component={mainStack} options={{headerShown:false}}/>
                     </>
                 )}
             </Stack.Navigator>

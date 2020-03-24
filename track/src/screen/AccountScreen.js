@@ -1,27 +1,26 @@
 import React from 'react';
-import {View,StyleSheet,Text} from 'react-native';
-import {Button} from 'react-native-elements';
+import {View,StyleSheet} from 'react-native';
+import {Button,Text} from 'react-native-elements';
 import Spacer from '../component/Specer';
 import { connect } from 'react-redux';
 import {SingOut} from '../actions/authAction';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const AccountScreen = ({SingOut}) =>{
     return (
-        <View style={styles.viewStyle}>
-            <Text style={styles.textStyle}>AccountScreen</Text>
+        <SafeAreaView style={styles.container} >
+            <Text h3>AccountScreen</Text>
             <Spacer>
             <Button title="Sign Out" onPress={SingOut}/>
             </Spacer>
-        </View>
+        </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
-    viewStyle:{
-        margin:30
-    },
-    textStyle:{
-        fontSize:40
+    container:{
+        flex:1,
+        alignItems:'center'
     }
 })
 

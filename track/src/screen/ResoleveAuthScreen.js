@@ -7,7 +7,7 @@ const ResoleveAuthScreen = ({TryLocalSignIn}) => {
     useEffect(() => {
        TryLocalSignIn();
     }, []);
-    return <Text style={{margin:30}}>hii</Text>;
+    return null;
 }
 
 

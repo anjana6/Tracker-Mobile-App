@@ -39,7 +39,6 @@ export const SignIn = ({email,password}) => async dispatch => {
 
 export const TryLocalSignIn = () => async dispatch =>{
     const token = await AsyncStorage.getItem('token');
-    console.log(token);
     if(token){
         dispatch({
             type:  HAVE_TOKEN,
