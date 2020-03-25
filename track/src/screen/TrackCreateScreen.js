@@ -8,35 +8,53 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import {addLocation} from '../actions/locationAction';
+//import useLocation from '../hooks/useLocation';
+import {withNavigationFocus} from '@react-navigation/compat';
 //import {requestPermissionsAsync} from 'expo-location';
+import TrackForm from '../component/TrackForm';
 
 
-const TrackCreateScreen = ({addLocation}) =>{
+const TrackCreateScreen = ({isFocused,addLocation,location:{recording}}) =>{
     const [err,setErr] = useState(null);
-
+    const [subscriber,setSubscriber] = useState(null); 
+    //const [err] = useLocation(addLocation); 
     useEffect(() => {
-        //startWatching();
+        console.log('0000000000');
+        if(isFocused){
         getPermissionLocation();
-     }, []);
-
+        }
+        else{
+            subscriber.remove();
+            setSubscriber(null);
+            console.log('33333333') 
+        }
+     }, [isFocused]);
+ 
      const getPermissionLocation = async () =>{
-         
-         let {status} = await Permissions.askAsync(Permissions.LOCATION);
-                        await Location.watchPositionAsync(
-                            {
-                                accuracy:Location.Accuracy.BestForNavigation,
-                                distanceInterval:1,
-                                timeInterval:1000
-                            },(newLocation) => {
-                                addLocation(newLocation);
-                            }
-                        )
-         
-         if(status !== 'granted'){
-            setErr('Please enable location services')
-         }
 
-     }
+        try {
+            console.log('1111111111');
+            let {status} = await Permissions.askAsync(Permissions.LOCATION);
+            if(status !== 'granted'){
+                setErr('Please enable location services')
+             }
+             const sub = await Location.watchPositionAsync(
+                {
+                    accuracy:Location.Accuracy.BestForNavigation,
+                    distanceInterval:1,
+                    timeInterval:10
+                },newlocation => {addLocation(newlocation);}
+            );
+            setSubscriber(sub)
+        } catch (err) {
+            setErr(err);
+        }
+    }
+
+    
+
+     console.log(isFocused);
+     console.log('2222222');
 
    
     // const startWatching = async () =>{
@@ -56,6 +74,8 @@ const TrackCreateScreen = ({addLocation}) =>{
             <Map/>
             {err? <Text>Please enable location services</Text> : null}
 
+            <TrackForm/>
+
             
         </SafeAreaView>
     )
@@ -63,6 +83,10 @@ const TrackCreateScreen = ({addLocation}) =>{
 
 const styles = StyleSheet.create({
     
+});
+
+const mapStateToProps = state => ({
+    location: state.location
 })
 
-export default connect(null,{addLocation})(TrackCreateScreen);
+export default connect(mapStateToProps,{addLocation})(withNavigationFocus(TrackCreateScreen));

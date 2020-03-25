@@ -5,7 +5,7 @@ import {connect } from 'react-redux';
 //import { ActivityIndicator } from 'react-native-paper';
 
 const Map = ({location:{currentLocation}}) =>{
-    console.log(currentLocation);
+    //console.log(currentLocation);
     if(!currentLocation) {
         return <ActivityIndicator size="large" style={{marginTop:200}}/>
 };
