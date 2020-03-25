@@ -1,18 +1,36 @@
 import React from 'react';
-import {Text,StyleSheet} from 'react-native';
-import MapView from 'react-native-maps'
+import { StyleSheet,ActivityIndicator} from 'react-native';
+import MapView,{Circle} from 'react-native-maps';
+import {connect } from 'react-redux';
+//import { ActivityIndicator } from 'react-native-paper';
 
-const Map = () =>{
+const Map = ({location:{currentLocation}}) =>{
+    console.log(currentLocation);
+    if(!currentLocation) {
+        return <ActivityIndicator size="large" style={{marginTop:200}}/>
+};
     return (
         <MapView 
             style={styles.map}
             initialRegion={{
-                latitude: 37.33233,
-                longitude: -122.03121,
+                ...currentLocation.coords,
                 latitudeDelta:0.15,
                 longitudeDelta:0.15
             }}  
-        />
+            region={{
+                ...currentLocation.coords,
+                latitudeDelta:0.15,
+                longitudeDelta:0.15 
+            }}
+        >
+            <Circle
+                center={currentLocation.coords}
+                radius={320}
+                strokeColor="blue"
+                fillColor="rgba(158,158,255,0.3)"
+
+            />
+        </MapView>
         )
 };
 
@@ -22,4 +40,8 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Map;
+const mapStateToProps = state => ({
+    location: state.location
+});
+
+export default connect(mapStateToProps)(Map);

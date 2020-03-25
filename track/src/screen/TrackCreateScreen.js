@@ -1,14 +1,17 @@
+//import '../_mockLocation';
 import React,{useEffect,useState} from 'react';
+import {connect} from 'react-redux';
 import {View,StyleSheet} from 'react-native';
 import Map from '../component/Map';
 import {Text} from 'react-native-elements';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
+import {addLocation} from '../actions/locationAction';
 //import {requestPermissionsAsync} from 'expo-location';
 
 
-const TrackCreateScreen = () =>{
+const TrackCreateScreen = ({addLocation}) =>{
     const [err,setErr] = useState(null);
 
     useEffect(() => {
@@ -17,9 +20,18 @@ const TrackCreateScreen = () =>{
      }, []);
 
      const getPermissionLocation = async () =>{
-         console.log(Permissions);
+         
          let {status} = await Permissions.askAsync(Permissions.LOCATION);
-         console.log(status);
+                        await Location.watchPositionAsync(
+                            {
+                                accuracy:Location.Accuracy.BestForNavigation,
+                                distanceInterval:1,
+                                timeInterval:1000
+                            },(newLocation) => {
+                                addLocation(newLocation);
+                            }
+                        )
+         
          if(status !== 'granted'){
             setErr('Please enable location services')
          }
@@ -53,4 +65,4 @@ const styles = StyleSheet.create({
     
 })
 
-export default TrackCreateScreen;
+export default connect(null,{addLocation})(TrackCreateScreen);
