@@ -8,82 +8,31 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import {addLocation} from '../actions/locationAction';
-//import useLocation from '../hooks/useLocation';
+import useLocation from '../hooks/useLocation';
 import {withNavigationFocus} from '@react-navigation/compat';
 //import {requestPermissionsAsync} from 'expo-location';
-import TrackForm from '../component/TrackForm';
+import TrackForm from '../component/TrackForm'; 
 
 
 const TrackCreateScreen = ({isFocused,addLocation,location:{recording}}) =>{
-    const [err,setErr] = useState(null);
-    const [subscriber,setSubscriber] = useState(null); 
-    //const [err] = useLocation(addLocation); 
-    useEffect(() => {
-        console.log('0000000000');
-        if(isFocused){
-        getPermissionLocation();
-        }
-        else{
-            subscriber.remove();
-            setSubscriber(null);
-            console.log('33333333') 
-        }
-     }, [isFocused]);
- 
-     const getPermissionLocation = async () =>{
-
-        try {
-            console.log('1111111111');
-            let {status} = await Permissions.askAsync(Permissions.LOCATION);
-            if(status !== 'granted'){
-                setErr('Please enable location services')
-             }
-             const sub = await Location.watchPositionAsync(
-                {
-                    accuracy:Location.Accuracy.BestForNavigation,
-                    distanceInterval:1,
-                    timeInterval:10
-                },newlocation => {addLocation(newlocation);}
-            );
-            setSubscriber(sub)
-        } catch (err) {
-            setErr(err);
-        }
-    }
-
+    console.log('1');
+    
+    const [err] = useLocation(isFocused,(location) => {addLocation(location,recording)}); 
     
 
-     console.log(isFocused);
-     console.log('2222222');
-
-   
-    // const startWatching = async () =>{
-    //     try {
-    //         await requestPermissionsAsync();
-    //     } catch (err) {
-    //         console.log(err);
-    //         setErr(err)
-    //     }
-    // }
-
-    
-    //console.log(err);
-    return (
+    return ( 
         <SafeAreaView>
             <Text h3>TrackCreateScreen</Text>
             <Map/>
             {err? <Text>Please enable location services</Text> : null}
 
-            <TrackForm/>
+            <TrackForm/> 
 
             
         </SafeAreaView>
     )
 }
 
-const styles = StyleSheet.create({
-    
-});
 
 const mapStateToProps = state => ({
     location: state.location

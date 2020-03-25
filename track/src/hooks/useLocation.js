@@ -2,12 +2,19 @@ import React,{useEffect,useState} from 'react';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
-export default (callback) => {
+export default (shouldTrack,callback) => {
     const [err,setErr] = useState(null); 
+    const [subscriber,setSubscriber] = useState(null);  
 
     useEffect(() => {
+        console.log("2");
+        if(shouldTrack){
         getPermissionLocation();
-     }, []);
+        }else{
+            subscriber.remove();
+            setSubscriber(null);
+        }
+     }, [shouldTrack]);
 
      const getPermissionLocation = async () =>{
 
@@ -16,13 +23,14 @@ export default (callback) => {
             if(status !== 'granted'){
                 setErr('Please enable location services')
              }
-             await Location.watchPositionAsync(
+            const sub =  await Location.watchPositionAsync(
                 {
                     accuracy:Location.Accuracy.BestForNavigation,
                     distanceInterval:1,
                     timeInterval:10
                 },callback
             );
+            setSubscriber(sub);
         } catch (err) {
             setErr(err);
         }

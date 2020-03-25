@@ -13,7 +13,7 @@ export const stopRecording = () => dispatch =>{
 };
 
 export const addLocation = (location,recording) => dispatch => {
-    console.log('hi');
+    //console.log(recording);
     dispatch({
         type: ADD_CURRENT_LOCATION,
         payload: location
