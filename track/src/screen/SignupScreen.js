@@ -5,9 +5,10 @@ import {SignUp,TryLocalSignIn,ClearErrorMessage} from '../actions/authAction';
 import AuthForm from '../component/AuthForm';
 import NavLink from '../component/NavLink';
 
-const SignupScreen = ({navigation,SignUp,TryLocalSignIn,ClearErrorMessage,auth:{errorMessage}}) =>{
+const SignupScreen = ({navigation,SignUp,ClearErrorMessage,auth:{errorMessage}}) =>{
 
     useEffect(() => {
+        console.log('sUp');
         const removeError = navigation.addListener('focus',() =>{
             ClearErrorMessage();
         });

@@ -31,7 +31,7 @@ export const changeName = (name) => dispatch => {
 }
 
 export const reset = () => dispatch =>{
-    console.log('hii');
+   // console.log('hii');
     dispatch({
         type: RESET
     })

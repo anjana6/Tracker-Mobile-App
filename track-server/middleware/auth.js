@@ -12,6 +12,7 @@ module.exports = (req,res,next) => {
         const decoded = jwt.verify(token,config.get("jwt"));
 
         req.userId = decoded.id;
+        console.log(req.userId);
 
         next();
     } catch (err) {

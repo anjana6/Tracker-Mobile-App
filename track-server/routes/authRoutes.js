@@ -21,7 +21,7 @@ try {
      user.password = await bcrypt.hash(password,salt); 
     await user.save();
 
-    const token = jwt.sign({userId: user._id},config.get('jwt'),{expiresIn: 360000});
+    const token = jwt.sign({id: user._id},config.get('jwt'),{expiresIn: 360000});
     res.send({token});
 } catch (err) {
     res.status(422).send(err.message);

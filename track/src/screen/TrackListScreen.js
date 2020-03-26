@@ -1,7 +1,21 @@
-import React from 'react';
+import React,{useEffect} from 'react';
+import {connect } from 'react-redux';
 import {View,StyleSheet,Text} from 'react-native';
+import {fetchTrack} from '../actions/trackAction';
 
-const TrackListScreen = () =>{
+const TrackListScreen = ({navigation,track,fetchTrack}) =>{
+    useEffect(() => {
+        console.log('oo');
+        //fetchTrack();
+        const unsubcribe = navigation.addListener('focus',() => {
+             fetchTrack();
+
+            return unsubcribe;
+        });
+       
+    }, [navigation]);
+    
+    console.log(track);
     return (
         <View style={styles.viewStyle}>
             <Text style={styles.textStyle}>TrackListScreen</Text>
@@ -18,4 +32,8 @@ const styles = StyleSheet.create({
     }
 })
 
-export default TrackListScreen;
+const mapStateToProps = state =>({
+    track: state.track
+})
+
+export default connect(mapStateToProps,{fetchTrack})(TrackListScreen);

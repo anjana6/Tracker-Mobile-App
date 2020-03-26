@@ -4,7 +4,7 @@ const Track = require('../models/Track');
 
 const router = express.Router();
 
-router.use(auth);
+//router.use(auth);
 
 router.get('/tracks',async(req,res) =>{
     
@@ -19,7 +19,7 @@ router.get('/tracks',async(req,res) =>{
     
 });
 
-router.post('/tracks',async(req,res) =>{
+router.post('/tracks',auth,async(req,res) =>{
     const {name,locations} = req.body;
 
     if(!name || !locations){

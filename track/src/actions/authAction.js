@@ -61,6 +61,7 @@ export const SingOut = () => async dispatch => {
 }
 
 export const ClearErrorMessage = () => dispatch =>{
+    console.log("cle");
     dispatch({
         type:CLEAR_ERROR_MESSAGE
     })

@@ -8,6 +8,7 @@ import NavLink from '../component/NavLink';
 const SigninScreen = ({navigation,SignIn,ClearErrorMessage,auth:{errorMessage}}) =>{
 
     useEffect(() => {
+        console.log("sIn");
         const removeError = navigation.addListener('focus',() =>{
             ClearErrorMessage();
         });
