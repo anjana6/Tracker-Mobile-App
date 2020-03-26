@@ -1,4 +1,4 @@
-import {ADD_CURRENT_LOCATION,START_RECORDING,STOP_RECORDING,ADD_LOCATION,CHANGE_NAME} from '../actions/Type';
+import {ADD_CURRENT_LOCATION,START_RECORDING,STOP_RECORDING,ADD_LOCATION,CHANGE_NAME,RESET} from '../actions/Type';
 
 const initialState = {
     name: '', 
@@ -20,6 +20,8 @@ export default  (state=initialState,action) => {
             return {...state,location:[...state.location,payload]};
         case CHANGE_NAME:
             return {...state,name:payload};
+        case RESET:
+            return {...state,name:'',location:[]};
         default:
             return state;
     }
