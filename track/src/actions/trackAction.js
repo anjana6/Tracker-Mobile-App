@@ -3,7 +3,7 @@ import trackerApi from '../api/tracker';
 
 export const fetchTrack = () =>async dispatch =>{
     try {
-        console.log('fech');
+        //console.log('fech');
         const res = await trackerApi.get('/tracks');
         //console.log(res.data);
     dispatch({

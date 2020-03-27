@@ -4,7 +4,7 @@ import {StyleSheet} from 'react-native';
 import {Text} from 'react-native-elements';
 import MapView,{Polyline} from 'react-native-maps';
 
-const TrackDetailScreen = ({navigation,route,track}) =>{
+const TrackDetailScreen = ({route,track}) =>{
     const {_id} = route.params;
     console.log(_id);
     const trackDetail = track.find(t  => t._id === _id);

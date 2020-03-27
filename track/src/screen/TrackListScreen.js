@@ -1,13 +1,12 @@
 import React,{useEffect} from 'react';
 import {connect } from 'react-redux';
-import {View,StyleSheet,Text,TouchableOpacity,FlatList} from 'react-native';
+import {TouchableOpacity,FlatList} from 'react-native';
 import {fetchTrack} from '../actions/trackAction';
 import {ListItem} from 'react-native-elements';
 
 const TrackListScreen = ({navigation,track,fetchTrack}) =>{
     useEffect(() => {
-        //console.log('oo');
-        //fetchTrack();
+    
         const unsubcribe = navigation.addListener('focus',() => {
              fetchTrack();
 
@@ -16,10 +15,9 @@ const TrackListScreen = ({navigation,track,fetchTrack}) =>{
        
     }, [navigation]);
     
-    //console.log(track);
     return (
-        <View>
-            <Text style={styles.textStyle}>TrackListScreen</Text>
+        <>
+            
             <FlatList 
                 data={track}
                 keyExtractor={item => item._id}
@@ -31,18 +29,9 @@ const TrackListScreen = ({navigation,track,fetchTrack}) =>{
                     )
                 }}
             />
-        </View>
+        </>
     )
 }
-
-const styles = StyleSheet.create({
-    viewStyle:{
-        margin:30
-    },
-    textStyle:{
-        fontSize:40
-    }
-})
 
 const mapStateToProps = state =>({
     track: state.track

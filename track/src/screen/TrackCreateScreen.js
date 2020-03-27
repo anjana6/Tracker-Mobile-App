@@ -1,26 +1,20 @@
 //import '../_mockLocation';
-import React,{useEffect,useState,useCallback} from 'react';
+import React,{useCallback} from 'react';
 import {connect} from 'react-redux';
-import {View,StyleSheet} from 'react-native';
 import Map from '../component/Map';
 import {Text} from 'react-native-elements';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import * as Location from 'expo-location';
-import * as Permissions from 'expo-permissions';
 import {addLocation} from '../actions/locationAction';
 import useLocation from '../hooks/useLocation';
 import {withNavigationFocus} from '@react-navigation/compat';
-//import {requestPermissionsAsync} from 'expo-location';
 import TrackForm from '../component/TrackForm'; 
 
 
 const TrackCreateScreen = ({isFocused,addLocation,location:{recording}}) =>{
-    const callback = useCallback((location) => {console.log(`inside${recording}`),addLocation(location,recording)},[recording]);
-    //console.log('1');
+    const callback = useCallback((location) => {addLocation(location,recording)},[recording]);
+    
     
     const [err] = useLocation(isFocused || recording,callback); 
-    
-    //console.log(recording); 
 
     return ( 
         <SafeAreaView>

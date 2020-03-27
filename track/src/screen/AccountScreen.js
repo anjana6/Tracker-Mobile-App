@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {View,StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {Button,Text} from 'react-native-elements';
 import Spacer from '../component/Specer';
 import { connect } from 'react-redux';

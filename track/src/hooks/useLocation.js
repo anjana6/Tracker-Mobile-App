@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react';
+import {useEffect,useState} from 'react';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
@@ -7,7 +7,6 @@ export default (shouldTrack,callback) => {
     
 
     useEffect(() => {
-        //console.log("2");
         let subscriber;
         const getPermissionLocation = async () =>{
 
