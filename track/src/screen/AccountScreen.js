@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {View,StyleSheet} from 'react-native';
 import {Button,Text} from 'react-native-elements';
 import Spacer from '../component/Specer';
@@ -7,6 +7,9 @@ import {SingOut} from '../actions/authAction';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 const AccountScreen = ({SingOut}) =>{
+    useEffect(() => {
+       console.log("last");
+    }, [])
     return (
         <SafeAreaView style={styles.container} >
             <Text h3>AccountScreen</Text>

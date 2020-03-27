@@ -29,7 +29,7 @@ const Nav = ({auth:{token,isToken}}) =>{
     const trackListFlowStack = () =>
         <Stack.Navigator>
             <Stack.Screen name="TrackList" component={TrackListScreen}/>
-            <Stack.Screen name="TrackDetailScreen" component={TrackDetailScreen}/>
+            <Stack.Screen name="TrackDetail" component={TrackDetailScreen} options={{title:''}}/>
         </Stack.Navigator>
     
     return(

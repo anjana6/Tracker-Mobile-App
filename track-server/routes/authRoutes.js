@@ -46,7 +46,7 @@ router.post('/singin', async (req,res) =>{
             return res.status(402).send({error:"Your password is not Match"})
         }
 
-        const token = jwt.sign({userId: user._id},config.get('jwt'),{expiresIn: 360000});
+        const token = jwt.sign({id: user._id},config.get('jwt'),{expiresIn: 360000});
         res.send({token});
 
     } catch (err) {

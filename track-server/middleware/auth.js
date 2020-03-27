@@ -10,9 +10,10 @@ module.exports = (req,res,next) => {
 
     try {
         const decoded = jwt.verify(token,config.get("jwt"));
+        //console.log(decoded);
 
         req.userId = decoded.id;
-        console.log(req.userId);
+        //console.log(req.userId);
 
         next();
     } catch (err) {

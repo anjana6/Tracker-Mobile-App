@@ -5,7 +5,7 @@ export const fetchTrack = () =>async dispatch =>{
     try {
         console.log('fech');
         const res = await trackerApi.get('/tracks');
-        console.log(res.data);
+        //console.log(res.data);
     dispatch({
         type: FETCH_TRACKS,
         payload: res.data
